@@ -1,13 +1,16 @@
 # GS420 AI
-Open-source-first AI hub for Bengali + English chat, coding, memory, voice, vision, image, video, agents, tools, documents, PWA and Android.
+Open-source-first AI hub for Bengali + English chat, memory, vision, image, video, agents, tools, documents, PWA and Android.
 
-## Phase 15 — React + FastAPI
-The frontend is now a React/Vite application shell connected to FastAPI APIs. It includes canonical pages/tabs for Chat, Coding, Vision, Image, Video, Voice, Agents, Documents, Memory and Settings, with API-driven Chat, Agents and Document Search examples.
+## Phase 16 — Model Management
+Adds a persistent model registry with task, size, hardware, quantization, enabled state, priority and local-availability metadata. Models can be enabled/disabled through the API and the React Settings view can display the registry.
 
-Build:
-cd frontend
-npm install
-npm run build
+Model directories:
+- data/models/general
+- data/models/coding
+- data/models/vision
+- data/models/speech
+- data/models/image
+- data/models/video
 
-Backend:
+Run:
 python -m uvicorn backend.main:app --reload
