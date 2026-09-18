@@ -1,0 +1,47 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="theme-color" content="#111827">
+<title>GS420 AI — Admin</title>
+<style>
+body{font-family:system-ui,sans-serif;max-width:1000px;margin:24px auto;padding:0 16px;background:#f8fafc;color:#111827}
+header{display:flex;justify-content:space-between;align-items:center;gap:12px;flex-wrap:wrap}
+.card{background:white;border:1px solid #e5e7eb;border-radius:14px;padding:16px;margin:14px 0;box-shadow:0 1px 3px #0001}
+input,button{padding:10px 12px;border-radius:8px;border:1px solid #cbd5e1}
+button{cursor:pointer}.grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:12px}
+pre{white-space:pre-wrap;overflow:auto}.muted{color:#64748b}
+</style>
+</head>
+<body>
+<header><div><h1>GS420 AI Admin</h1><p class="muted">Phase 13 management dashboard</p></div></header>
+<div class="card">
+<label>Admin token</label><br>
+<input id="token" type="password" placeholder="GS420_ADMIN_TOKEN" style="width:min(100%,420px)">
+<button id="load">Load dashboard</button>
+</div>
+<div id="status" class="card">Enter the admin token and load the dashboard.</div>
+<div id="details"></div>
+<script>
+const token=document.getElementById("token");
+const status=document.getElementById("status");
+const details=document.getElementById("details");
+token.value=sessionStorage.getItem("gs420_admin_token")||"";
+document.getElementById("load").onclick=async()=>{
+ const t=token.value.trim();
+ if(!t){status.textContent="Admin token is required.";return}
+ sessionStorage.setItem("gs420_admin_token",t);
+ status.textContent="Loading...";
+ details.innerHTML="";
+ try{
+  const r=await fetch("/api/admin/dashboard",{headers:{"X-GS420-Admin-Token":t}});
+  const data=await r.json();
+  if(!r.ok) throw new Error(data.detail||"Request failed");
+  status.innerHTML="<b>Status:</b> Online &nbsp; <b>Version:</b> "+data.version+" &nbsp; <b>Phase:</b> "+data.phase;
+  details.innerHTML="<div class='grid'><div class='card'><b>Model</b><p>"+data.configuration.model_id+"</p></div><div class='card'><b>Device</b><p>"+data.configuration.device+"</p></div><div class='card'><b>Temperature</b><p>"+data.configuration.temperature+"</p></div><div class='card'><b>Max tokens</b><p>"+data.configuration.max_new_tokens+"</p></div></div><div class='card'><h2>Configuration</h2><pre>"+JSON.stringify(data.configuration,null,2)+"</pre></div><div class='card'><h2>Redacted environment</h2><pre>"+JSON.stringify(data.environment,null,2)+"</pre></div>";
+ }catch(e){status.textContent="Error: "+e.message}
+};
+</script>
+</body>
+</html>
