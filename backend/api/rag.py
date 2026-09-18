@@ -4,7 +4,8 @@ import io, os, tempfile
 from typing import Any
 from fastapi import APIRouter, File, Form, HTTPException, UploadFile
 from pydantic import BaseModel, Field
-from backend.rag import DocumentStore, EmbeddingProvider\nfrom backend.vision import OCRService\nfrom backend.config import get_settings
+from backend.rag import DocumentStore, EmbeddingProvider
+from backend.vision import OCRService\nfrom backend.config import get_settings
 from backend.config import get_settings
 
 router=APIRouter(prefix="/api/rag",tags=["rag"])
@@ -15,17 +16,17 @@ class SearchRequest(BaseModel):
     limit:int=Field(default=5,ge=1,le=20)
     semantic:bool=False
 
-def _extract_text(filename:str,data:bytes,ocr_scanned:bool=False,language:str="ben+eng",preprocess:str="balanced")->tuple[str,dict[str,Any]]:
+def _extract_text(filename:str,data:bytes,ocr_scanned:bool=False,language:str="ben+eng",preprocess:str="balanced")->str:
     suffix=os.path.splitext(filename)[1].lower()
-    if suffix in {".txt",".md",".csv",".json"}: return data.decode("utf-8",errors="replace"), {"method":"text"}
+    if suffix in {".txt",".md",".csv",".json"}: return data.decode("utf-8",errors="replace")
     if suffix==".pdf":
         from pypdf import PdfReader
         reader=PdfReader(io.BytesIO(data))
-        return "\n".join((p.extract_text() or "") for p in reader.pages), {"method":"pdf_text"}
+        return "\n".join((p.extract_text() or "") for p in reader.pages)
     if suffix==".docx":
         from docx import Document
         doc=Document(io.BytesIO(data))
-        return "\n".join(p.text for p in doc.paragraphs), {"method":"docx_text"}
+        return "\n".join(p.text for p in doc.paragraphs)
     raise ValueError("Supported formats: TXT, MD, CSV, JSON, PDF, DOCX.")
 
 @router.get("/stats")
@@ -37,7 +38,7 @@ async def upload_document(file:UploadFile=File(...), embed:bool=Form(False), ocr
     if not data: raise HTTPException(400,"Document is empty.")
     if len(data)>20*1024*1024: raise HTTPException(413,"Document is too large.")
     try:filename=file.filename or "document"
-        text=_extract_text(filename,data,ocr_scanned=ocr_scanned,language=language)
+        text=_extract_text(filename,data,ocr_scanned=ocr_scanned,language=language,preprocess=preprocess)
         if not text: raise ValueError("No extractable text found. For scanned PDFs, enable ocr_scanned=true.")
         return store.add(filename,text,create_embeddings=embed)\n
     except RuntimeError as exc: raise HTTPException(503,str(exc)) from exc
