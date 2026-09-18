@@ -1,9 +1,11 @@
-import ast,operator as op
-OPS={ast.Add:op.add,ast.Sub:op.sub,ast.Mult:op.mul,ast.Div:op.truediv,ast.Mod:op.mod,ast.Pow:op.pow,ast.USub:op.neg}
-def calculate(expr):
- def e(n):
-  if isinstance(n,ast.Constant) and isinstance(n.value,(int,float)):return n.value
-  if isinstance(n,ast.BinOp) and type(n.op) in OPS:return OPS[type(n.op)](e(n.left),e(n.right))
-  if isinstance(n,ast.UnaryOp) and type(n.op) in OPS:return OPS[type(n.op)](e(n.operand))
-  raise ValueError("Only arithmetic is allowed")
- return e(ast.parse(expr,mode="eval").body)
+"""Safe arithmetic tool."""
+import ast,operator
+OPS={ast.Add:operator.add,ast.Sub:operator.sub,ast.Mult:operator.mul,ast.Div:operator.truediv,ast.Pow:operator.pow,ast.Mod:operator.mod,ast.USub:operator.neg,ast.UAdd:operator.pos}
+def calculate(expression):
+    if len(expression)>500:raise ValueError("Expression too long")
+    def ev(n):
+        if isinstance(n,ast.Constant) and isinstance(n.value,(int,float)):return n.value
+        if isinstance(n,ast.BinOp) and type(n.op) in OPS:return OPS[type(n.op)](ev(n.left),ev(n.right))
+        if isinstance(n,ast.UnaryOp) and type(n.op) in OPS:return OPS[type(n.op)](ev(n.operand))
+        raise ValueError("Unsupported expression")
+    return {"result":ev(ast.parse(expression,mode="eval").body)}
