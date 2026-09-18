@@ -2,6 +2,16 @@
 
 Modular open-model AI platform.
 
+## Phase 8 — Video AI
+- Provider-agnostic text-to-video API
+- Image-to-video API foundation
+- `GET /api/video/providers`
+- `POST /api/video/generate`
+- `POST /api/video/image-to-video`
+- Duration, resolution, FPS, and optional seed controls
+- Image upload limit: 15 MB
+- Heavy video models remain optional; a local video adapter can be plugged in later
+
 ## Phase 7 — Image AI
 - Provider-agnostic image generation API
 - Image editing API with optional mask upload
@@ -127,6 +137,9 @@ GS420_DEVICE=auto
 - GET /api/image/providers
 - POST /api/image/generate
 - POST /api/image/edit
+- GET /api/video/providers
+- POST /api/video/generate
+- POST /api/video/image-to-video
 
 ## Tests
 ```bash
