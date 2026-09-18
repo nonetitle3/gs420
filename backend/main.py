@@ -13,9 +13,6 @@ from backend.api.video import router as video_router
 from backend.api.agents import router as agents_router
 from backend.api.tools import router as tools_router
 from backend.api.rag import router as rag_router
-from backend.api.admin import router as admin_router
-from backend.api.metrics import router as metrics_router
-from backend.api.voters import router as voter_router
 from backend.observability import observability, RequestEvent, log_exception
 import time
 import uuid
@@ -23,7 +20,7 @@ import uuid
 app = FastAPI(
     title="GS420 AI",
     description="Modular open-model AI platform foundation.",
-    version="2.0.0",
+    version="1.0.0",
 )
 
 app.add_middleware(
@@ -42,9 +39,6 @@ app.include_router(video_router)
 app.include_router(agents_router)
 app.include_router(tools_router)
 app.include_router(rag_router)
-app.include_router(admin_router)
-app.include_router(metrics_router)
-app.include_router(voter_router)
 @app.middleware("http")
 async def observability_middleware(request: Request, call_next):
     request_id = request.headers.get("X-Request-ID") or str(uuid.uuid4())
@@ -77,7 +71,7 @@ def root() -> dict[str, str]:
 
 @app.get("/health")
 def health() -> dict[str, str]:
-    return {"status": "ok", "service": "gs420-ai", "phase": "28"}
+    return {"status": "ok", "service": "gs420-ai", "phase": "1"}
 
 
 @app.get("/api/models")
@@ -87,4 +81,4 @@ def models(orchestrator: AIOrchestrator = Depends(get_orchestrator)) -> dict:
 
 @app.get("/api/system")
 def system_info(orchestrator: AIOrchestrator = Depends(get_orchestrator)) -> dict:
-    return {"status": "ok", "model": orchestrator.model_info(), "phase": 28}
+    return {"status": "ok", "model": orchestrator.model_info(), "phase": 1}
