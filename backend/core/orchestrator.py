@@ -10,6 +10,7 @@ from typing import Any
 from backend.config import Settings
 from backend.models.router import ModelRouter
 from backend.memory import SQLiteMemoryStore
+from backend.sandbox import ExecutionResult, SandboxExecutor
 
 
 class ConversationStore:
@@ -37,6 +38,7 @@ class AIOrchestrator:
         self.settings = settings
         self.router = ModelRouter(settings)
         self.memory = SQLiteMemoryStore(settings.memory_db_path, settings.max_history_messages)
+        self.sandbox = SandboxExecutor(settings.sandbox_timeout_seconds, settings.sandbox_max_output_chars)
 
     def new_session(self) -> str:
         return self.memory.create_session(str(uuid.uuid4()))
@@ -79,6 +81,9 @@ class AIOrchestrator:
 
     def clear_history(self, session_id: str) -> None:
         self.memory.clear(session_id)
+
+    def execute_python(self, code: str) -> ExecutionResult:
+        return self.sandbox.execute_python(code)
 
     def model_info(self) -> dict[str, Any]:
         return {"routes": self.router.list_routes(), "memory": self.memory.stats()}
