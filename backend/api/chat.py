@@ -21,7 +21,7 @@ class ChatRequest(BaseModel):
     role: str = Field(default="auto", pattern="^(auto|general|chat|reasoning|coding|vision)$")
     temperature: float | None = Field(default=None, ge=0.0, le=2.0)
     top_p: float | None = Field(default=None, gt=0.0, le=1.0)
-    max_new_tokens: int | None = Field(default=None, ge=1, le=8192)
+    max_new_tokens: int | None = Field(default=None, ge=1, le=8192)\n    use_rag: bool | None = None\n    rag_top_k: int | None = Field(default=None, ge=1, le=10)
 
 
 class ChatResponse(BaseModel):
