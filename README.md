@@ -1,13 +1,15 @@
 # GS420 AI
-Open-source-first AI hub for Bengali + English chat, memory, vision, image, video, agents, tools, documents and offline-first web use.
+Open-source-first AI hub for Bengali + English chat, memory, vision, image, video, agents, tools, documents, PWA and Android.
 
-## Phase 12 — PWA / Offline-first
-The frontend now has responsive mobile UI, installable web-app metadata, a service worker cache, local chat persistence and online/offline status. Backend inference still requires a reachable API unless an offline model is configured.
+## Phase 13 — Android / Capacitor
+The project now contains a Capacitor Android wrapper configuration targeting the built PWA. Heavy inference remains remote/local-backend rather than pretending large models run efficiently on phones.
 
-Run frontend:
-cd frontend
+Frontend:
+cd frontend && npm install && npm run build
+
+Android:
+cd mobile/capacitor
 npm install
-npm run build
-
-Run backend:
-python -m uvicorn backend.main:app --reload
+npx cap add android
+npm run sync
+npx cap open android
