@@ -19,6 +19,7 @@ class Settings(BaseSettings):
     host: str = Field(default="0.0.0.0", alias="GS420_HOST")
     port: int = Field(default=7860, alias="GS420_PORT", ge=1, le=65535)
     device: str = Field(default="auto", alias="GS420_DEVICE")
+    model_cache_dir: str | None = Field(default=None, alias="GS420_MODEL_CACHE_DIR")
     hf_token: str | None = Field(default=None, alias="GS420_HF_TOKEN")
     memory_db_path: str = Field(default="./data/gs420_memory.db", alias="GS420_MEMORY_DB_PATH")
     upload_dir: str = Field(default="./data/uploads", alias="GS420_UPLOAD_DIR")
@@ -46,3 +47,5 @@ def get_settings():
 
 settings = get_settings()
 Path(settings.upload_dir).mkdir(parents=True, exist_ok=True)
+if settings.model_cache_dir:
+    Path(settings.model_cache_dir).mkdir(parents=True, exist_ok=True)
