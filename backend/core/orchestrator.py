@@ -9,6 +9,7 @@ from typing import Any
 
 from backend.config import Settings
 from backend.models.router import ModelRouter
+from backend.memory import SQLiteMemoryStore
 
 
 class ConversationStore:
@@ -35,13 +36,13 @@ class AIOrchestrator:
     def __init__(self, settings: Settings) -> None:
         self.settings = settings
         self.router = ModelRouter(settings)
-        self.conversations = ConversationStore(settings.max_history_messages)
+        self.memory = SQLiteMemoryStore(settings.memory_db_path, settings.max_history_messages)
 
     def new_session(self) -> str:
-        return str(uuid.uuid4())
+        return self.memory.create_session(str(uuid.uuid4()))
 
     def _prepare_messages(self, session_id: str, user_message: str) -> list[dict[str, str]]:
-        return self.conversations.get(session_id) + [{"role": "user", "content": user_message}]
+        return self.memory.get(session_id) + [{"role": "user", "content": user_message}]
 
     def resolve_role(self, role: str, message: str) -> str:
         selected_role, _ = self.router.route(role, message)
@@ -53,8 +54,8 @@ class AIOrchestrator:
             raise ValueError("Message cannot be empty.")
         selected_role, model = self.router.route(role, cleaned)
         response = model.generate(self._prepare_messages(session_id, cleaned), **generation_kwargs)
-        self.conversations.append(session_id, "user", cleaned)
-        self.conversations.append(session_id, "assistant", response)
+        self.memory.append(session_id, "user", cleaned)
+        self.memory.append(session_id, "assistant", response)
         return selected_role, response
 
     def stream_chat(self, session_id: str, user_message: str, role: str = "auto", **generation_kwargs: Any) -> Generator[str, None, None]:
@@ -70,14 +71,14 @@ class AIOrchestrator:
         finally:
             response = "".join(chunks).strip()
             if response:
-                self.conversations.append(session_id, "user", cleaned)
-                self.conversations.append(session_id, "assistant", response)
+                self.memory.append(session_id, "user", cleaned)
+                self.memory.append(session_id, "assistant", response)
 
     def get_history(self, session_id: str) -> list[dict[str, str]]:
-        return self.conversations.get(session_id)
+        return self.memory.get(session_id)
 
     def clear_history(self, session_id: str) -> None:
-        self.conversations.clear(session_id)
+        self.memory.clear(session_id)
 
     def model_info(self) -> dict[str, Any]:
-        return {"routes": self.router.list_routes()}
+        return {"routes": self.router.list_routes(), "memory": self.memory.stats()}
