@@ -1,2 +1,2 @@
 # Pages
-The responsive shell exposes Chat, Coding, Vision, Image, Video, Voice, Agents, Documents, Memory and Settings entry points. Heavy capabilities remain backend adapters.
+Phase 15 establishes the React/Vite application shell. The tabbed UI maps to the canonical GS420 modules. Specialized pages can consume their respective backend APIs without changing the API contract.
