@@ -1,2 +1,3 @@
 class VisionAgent:
- def run(self,input_data):return {"task":"vision","input":input_data}
+    def analyze(self,image_path,vision_service):
+        return vision_service.analyze(image_path)

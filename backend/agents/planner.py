@@ -1,2 +1,6 @@
-class Planner:
- def plan(self,request):return {"goal":request,"steps":["classify","select agent","execute","verify","respond"]}
+"""Controlled task planner."""
+class PlannerAgent:
+    def plan(self,task):
+        task=task.strip()
+        if not task:return []
+        return [{"step":1,"agent":"reasoning","task":task}]

@@ -1,2 +1,4 @@
 class ReasoningAgent:
- def run(self,request,orchestrator):return orchestrator.chat(request,task="reasoning")
+    def solve(self,task,orchestrator=None):
+        if orchestrator:return orchestrator.chat(task,task="reasoning")
+        return {"task":task,"status":"ready"}
