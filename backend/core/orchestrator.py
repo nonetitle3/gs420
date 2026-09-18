@@ -11,6 +11,7 @@ from backend.config import Settings
 from backend.models.router import ModelRouter
 from backend.memory import SQLiteMemoryStore
 from backend.sandbox import ExecutionResult, SandboxExecutor
+from backend.rag import DocumentStore, EmbeddingProvider
 
 
 class ConversationStore:
@@ -39,6 +40,7 @@ class AIOrchestrator:
         self.router = ModelRouter(settings)
         self.memory = SQLiteMemoryStore(settings.memory_db_path, settings.max_history_messages)
         self.sandbox = SandboxExecutor(settings.sandbox_timeout_seconds, settings.sandbox_max_output_chars)
+        self.rag = DocumentStore(embedder=EmbeddingProvider(settings.embedding_model_id) if settings.embedding_model_id else None)
 
     def new_session(self) -> str:
         return self.memory.create_session(str(uuid.uuid4()))
@@ -50,7 +52,7 @@ class AIOrchestrator:
         selected_role, _ = self.router.route(role, message)
         return selected_role
 
-    def chat(self, session_id: str, user_message: str, role: str = "auto", **generation_kwargs: Any) -> tuple[str, str]:
+    def _rag_context(self, query: str) -> str:\n        if not self.settings.rag_enabled: return ""\n        try:\n            results = self.rag.search(query, self.settings.rag_top_k, semantic=self.settings.rag_semantic and self.rag.embedder is not None)\n        except Exception:\n            return ""\n        if not results: return ""\n        parts = ["Relevant document context (use only when it helps answer the user):"]\n        for i, item in enumerate(results, 1):\n            parts.append(f"[{i}] {item.get(\"filename\", \"document\")}: {item.get(\"snippet\", \"\")}")\n        return "\\n".join(parts)\n\n    def chat(self, session_id: str, user_message: str, role: str = "auto", **generation_kwargs: Any) -> tuple[str, str]:
         cleaned = user_message.strip()
         if not cleaned:
             raise ValueError("Message cannot be empty.")
@@ -67,7 +69,7 @@ class AIOrchestrator:
         _, model = self.router.route(role, cleaned)
         chunks: list[str] = []
         try:
-            for chunk in model.stream(self._prepare_messages(session_id, cleaned), **generation_kwargs):
+            messages = self._prepare_messages(session_id, cleaned)\n            context = self._rag_context(cleaned)\n            if context: messages.insert(max(0, len(messages)-1), {"role": "system", "content": context})\n            for chunk in model.stream(messages, **generation_kwargs):
                 chunks.append(chunk)
                 yield chunk
         finally:
