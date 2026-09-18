@@ -2,6 +2,16 @@
 
 Modular open-model AI platform.
 
+## Phase 7 — Image AI
+- Provider-agnostic image generation API
+- Image editing API with optional mask upload
+- `GET /api/image/providers`
+- `POST /api/image/generate`
+- `POST /api/image/edit`
+- Prompt, size, steps, and optional seed controls
+- Image upload limit: 15 MB
+- The base installation does not download a large image model; a Diffusers/SDXL/FLUX adapter can be plugged in later
+
 ## Phase 6 — Vision + OCR
 - Image upload API for vision analysis
 - OCR API with Bengali + English language selection
@@ -114,6 +124,9 @@ GS420_DEVICE=auto
 - GET /api/vision/providers
 - POST /api/vision/ocr
 - POST /api/vision/analyze
+- GET /api/image/providers
+- POST /api/image/generate
+- POST /api/image/edit
 
 ## Tests
 ```bash
