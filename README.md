@@ -2,6 +2,16 @@
 
 Modular open-model AI platform.
 
+## Phase 6 — Vision + OCR
+- Image upload API for vision analysis
+- OCR API with Bengali + English language selection
+- `GET /api/vision/providers`
+- `POST /api/vision/ocr`
+- `POST /api/vision/analyze`
+- Image upload limit: 15 MB
+- Provider adapters remain optional so the base installation stays lightweight
+- OCR/vision engines can be added later without changing the API contract
+
 ## Phase 5 — Voice / STT / TTS
 - Voice API foundation for speech-to-text and text-to-speech
 - `POST /api/voice/transcribe` accepts audio uploads
@@ -101,6 +111,9 @@ GS420_DEVICE=auto
 - GET /api/voice/providers
 - POST /api/voice/transcribe
 - POST /api/voice/synthesize
+- GET /api/vision/providers
+- POST /api/vision/ocr
+- POST /api/vision/analyze
 
 ## Tests
 ```bash
