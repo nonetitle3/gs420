@@ -2,7 +2,7 @@
 
 Modular open-model AI platform.
 
-## Phase 14 — Production Observability + Monitoring\n- Request metrics and latency tracking\n- 5xx error counters\n- Recent request event buffer with request IDs\n- Structured exception logging\n- Admin-protected metrics API at `/api/metrics/summary`\n- Monitoring UI at `/pwa/monitor.html`\n- API release version `1.2.0`\n\n## Phase 14 — Production Observability + Monitoring\nPhase 13 — Management Dashboard + Admin Security\n- Admin dashboard at `/pwa/admin.html`\n- Token-protected management endpoints under `/api/admin`\n- `GS420_ADMIN_TOKEN` is never returned by the API\n- Redacted GS420 environment view\n- Runtime model/device/configuration snapshot\n- API release version `1.1.0`\n\n## Phase 12 — PWA + Management/Security Foundation
+## Phase 15 — Advanced RAG + PDF/DOCX + Vector Search\n- PDF text extraction with `pypdf`\n- DOCX paragraph extraction with `python-docx`\n- Document chunking with overlap\n- Optional local Transformer embeddings\n- Semantic cosine-similarity search\n- Existing SQLite FTS5 search remains available\n- `GS420_EMBEDDING_MODEL_ID` enables semantic indexing\n- `POST /api/rag/documents` supports `embed=true`\n- `POST /api/rag/search` supports `semantic=true`\n- RAG statistics now include chunks and embedded chunks\n\n## Phase 14 — Production Observability + Monitoring\n- Request metrics and latency tracking\n- 5xx error counters\n- Recent request event buffer with request IDs\n- Structured exception logging\n- Admin-protected metrics API at `/api/metrics/summary`\n- Monitoring UI at `/pwa/monitor.html`\n- API release version `1.2.0`\n\n## Phase 14 — Production Observability + Monitoring\nPhase 13 — Management Dashboard + Admin Security\n- Admin dashboard at `/pwa/admin.html`\n- Token-protected management endpoints under `/api/admin`\n- `GS420_ADMIN_TOKEN` is never returned by the API\n- Redacted GS420 environment view\n- Runtime model/device/configuration snapshot\n- API release version `1.1.0`\n\n## Phase 12 — PWA + Management/Security Foundation
 - Installable PWA shell at `/pwa/`
 - Web App Manifest
 - Service worker with basic offline shell caching
@@ -22,7 +22,7 @@ Modular open-model AI platform.
 - `GET /api/rag/documents/{document_id}`
 - `DELETE /api/rag/documents/{document_id}`
 - 20 MB document upload limit
-- PDF/DOCX extraction and vector embeddings are reserved for the next RAG enhancement
+- PDF/DOCX extraction and vector search are implemented in Phase 15
 
 ## Phase 10 — Tools System
 - Permission-aware built-in tool registry
