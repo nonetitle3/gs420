@@ -1,1 +1,1 @@
-{"name":"gs420-ai","private":true,"version":"1.0.0","type":"module","scripts":{"dev":"vite","build":"vite build"},"dependencies":{"vite":"latest","react":"latest","react-dom":"latest"}}
+{"name":"gs420-ai","private":true,"version":"1.0.0","type":"module","scripts":{"dev":"vite","build":"vite build"},"dependencies":{"vite":"latest","react":"latest","react-dom":"latest"},"devDependencies":{"@vitejs/plugin-react":"latest"}}
