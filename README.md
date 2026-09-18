@@ -2,6 +2,12 @@
 
 Modular open-model AI platform.
 
+## Phase 2 — Model Router
+- Role-based routing: general, reasoning, coding, vision
+- Automatic routing for coding/reasoning keywords
+- Optional specialized Hugging Face model IDs
+- Explicit role selection through `POST /api/chat`
+
 ## Phase 1
 - FastAPI backend
 - Gradio UI at /ui
