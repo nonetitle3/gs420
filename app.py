@@ -1,7 +1,13 @@
-"""Hugging Face Spaces / local Gradio entry point for GS420 AI."""
-from gradio_ui.app import build_ui
+"""GS420 AI Gradio entry point."""
+import os
+from gradio_ui.app import build_app
 
-demo=build_ui()
+demo = build_app()
 
-if __name__=="__main__":
-    demo.launch(server_name="0.0.0.0",server_port=7860)
+def main():
+    port = int(os.getenv("PORT") or os.getenv("GRADIO_SERVER_PORT") or "7860")
+    host = os.getenv("GRADIO_SERVER_NAME", "0.0.0.0")
+    demo.launch(server_name=host, server_port=port, show_error=True)
+
+if __name__ == "__main__":
+    main()
