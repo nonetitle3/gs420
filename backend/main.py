@@ -13,11 +13,12 @@ from backend.api.video import router as video_router
 from backend.api.agents import router as agents_router
 from backend.api.tools import router as tools_router
 from backend.api.rag import router as rag_router
+from backend.api.admin import router as admin_router
 
 app = FastAPI(
     title="GS420 AI",
     description="Modular open-model AI platform foundation.",
-    version="1.0.0",
+    version="1.1.0",
 )
 
 app.add_middleware(
@@ -36,6 +37,7 @@ app.include_router(video_router)
 app.include_router(agents_router)
 app.include_router(tools_router)
 app.include_router(rag_router)
+app.include_router(admin_router)
 app.mount("/pwa", StaticFiles(directory="pwa", html=True), name="pwa")
 
 
@@ -46,7 +48,7 @@ def root() -> dict[str, str]:
 
 @app.get("/health")
 def health() -> dict[str, str]:
-    return {"status": "ok", "service": "gs420-ai", "phase": "12"}
+    return {"status": "ok", "service": "gs420-ai", "phase": "13"}
 
 
 @app.get("/api/models")
@@ -56,4 +58,4 @@ def models(orchestrator: AIOrchestrator = Depends(get_orchestrator)) -> dict:
 
 @app.get("/api/system")
 def system_info(orchestrator: AIOrchestrator = Depends(get_orchestrator)) -> dict:
-    return {"status": "ok", "model": orchestrator.model_info(), "phase": 12}
+    return {"status": "ok", "model": orchestrator.model_info(), "phase": 13}
