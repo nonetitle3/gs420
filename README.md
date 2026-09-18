@@ -2,6 +2,15 @@
 
 Modular open-model AI platform.
 
+## Phase 12 — PWA + Management/Security Foundation
+- Installable PWA shell at `/pwa/`
+- Web App Manifest
+- Service worker with basic offline shell caching
+- FastAPI serves the PWA
+- Security helpers for generating secrets and redacting `GS420_*` environment values
+- API release version `1.0.0`
+- Android packaging with Capacitor and full management/observability dashboard are reserved for the next implementation increment
+
 ## Phase 11 — RAG + Documents
 - SQLite-backed document store
 - Full-text search with SQLite FTS5 when available
@@ -176,6 +185,7 @@ GS420_DEVICE=auto
 - POST /api/agents/run
 - GET /api/tools
 - POST /api/tools/execute
+- GET /pwa/
 - GET /api/rag/stats
 - POST /api/rag/documents
 - POST /api/rag/search
@@ -203,4 +213,4 @@ Phase 8 — Video AI
 Phase 9 — Agents
 Phase 10 — Tools
 Phase 11 — RAG
-Phase 12+ — PWA/Android/management/security/observability
+Phase 12 — PWA + management/security foundation
