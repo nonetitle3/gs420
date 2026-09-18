@@ -2,14 +2,14 @@
 
 Modular open-model AI platform.
 
-## Phase 12 — PWA + Management/Security Foundation
+## Phase 13 — Management Dashboard + Admin Security\n- Admin dashboard at `/pwa/admin.html`\n- Token-protected management endpoints under `/api/admin`\n- `GS420_ADMIN_TOKEN` is never returned by the API\n- Redacted GS420 environment view\n- Runtime model/device/configuration snapshot\n- API release version `1.1.0`\n\n## Phase 12 — PWA + Management/Security Foundation
 - Installable PWA shell at `/pwa/`
 - Web App Manifest
 - Service worker with basic offline shell caching
 - FastAPI serves the PWA
 - Security helpers for generating secrets and redacting `GS420_*` environment values
 - API release version `1.0.0`
-- Android packaging with Capacitor and full management/observability dashboard are reserved for the next implementation increment
+- Android packaging with Capacitor and full production observability remain future work
 
 ## Phase 11 — RAG + Documents
 - SQLite-backed document store
