@@ -1,12 +1,15 @@
-"""Central Phase 1 AI orchestration service."""
+"""Central GS420 AI orchestration service."""
 from __future__ import annotations
+
 import threading
 import uuid
 from collections import defaultdict
 from collections.abc import Generator
 from typing import Any
+
 from backend.config import Settings
-from backend.models.registry import ModelRegistry
+from backend.models.router import ModelRouter
+
 
 class ConversationStore:
     def __init__(self, max_messages: int) -> None:
@@ -27,10 +30,11 @@ class ConversationStore:
         with self._lock:
             self._data.pop(session_id, None)
 
+
 class AIOrchestrator:
     def __init__(self, settings: Settings) -> None:
         self.settings = settings
-        self.registry = ModelRegistry(settings)
+        self.router = ModelRouter(settings)
         self.conversations = ConversationStore(settings.max_history_messages)
 
     def new_session(self) -> str:
@@ -39,26 +43,28 @@ class AIOrchestrator:
     def _prepare_messages(self, session_id: str, user_message: str) -> list[dict[str, str]]:
         return self.conversations.get(session_id) + [{"role": "user", "content": user_message}]
 
-    def chat(self, session_id: str, user_message: str, **generation_kwargs: Any) -> str:
+    def resolve_role(self, role: str, message: str) -> str:
+        selected_role, _ = self.router.route(role, message)
+        return selected_role
+
+    def chat(self, session_id: str, user_message: str, role: str = "auto", **generation_kwargs: Any) -> tuple[str, str]:
         cleaned = user_message.strip()
         if not cleaned:
             raise ValueError("Message cannot be empty.")
-        response = self.registry.get_text_model().generate(
-            self._prepare_messages(session_id, cleaned), **generation_kwargs
-        )
+        selected_role, model = self.router.route(role, cleaned)
+        response = model.generate(self._prepare_messages(session_id, cleaned), **generation_kwargs)
         self.conversations.append(session_id, "user", cleaned)
         self.conversations.append(session_id, "assistant", response)
-        return response
+        return selected_role, response
 
-    def stream_chat(self, session_id: str, user_message: str, **generation_kwargs: Any) -> Generator[str, None, None]:
+    def stream_chat(self, session_id: str, user_message: str, role: str = "auto", **generation_kwargs: Any) -> Generator[str, None, None]:
         cleaned = user_message.strip()
         if not cleaned:
             raise ValueError("Message cannot be empty.")
+        _, model = self.router.route(role, cleaned)
         chunks: list[str] = []
         try:
-            for chunk in self.registry.get_text_model().stream(
-                self._prepare_messages(session_id, cleaned), **generation_kwargs
-            ):
+            for chunk in model.stream(self._prepare_messages(session_id, cleaned), **generation_kwargs):
                 chunks.append(chunk)
                 yield chunk
         finally:
@@ -73,5 +79,5 @@ class AIOrchestrator:
     def clear_history(self, session_id: str) -> None:
         self.conversations.clear(session_id)
 
-    def model_info(self) -> list[dict[str, Any]]:
-        return self.registry.list_models()
+    def model_info(self) -> dict[str, Any]:
+        return {"routes": self.router.list_routes()}
