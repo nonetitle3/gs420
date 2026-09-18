@@ -1,0 +1,1 @@
+def status():return "Voice tools ready"

@@ -1,15 +1,11 @@
 # GS420 AI
-Open-source-first AI hub for Bengali + English chat, memory, vision, image, video, agents, tools, documents, PWA and Android.
+Open-source-first AI hub for Bengali + English chat, coding, memory, voice, vision, image, video, agents, tools, documents, PWA and Android.
 
-## Phase 13 — Android / Capacitor
-The project now contains a Capacitor Android wrapper configuration targeting the built PWA. Heavy inference remains remote/local-backend rather than pretending large models run efficiently on phones.
+## Phase 14 — Gradio UI
+Provides the GS420 AI Gradio interface with Auto model/device controls and tabs for Chat, Coding, Vision, Image, Video, Voice, Agents, Documents, Memory and Settings.
 
-Frontend:
-cd frontend && npm install && npm run build
+Run:
+python app.py
 
-Android:
-cd mobile/capacitor
-npm install
-npx cap add android
-npm run sync
-npx cap open android
+API:
+python -m uvicorn backend.main:app --reload

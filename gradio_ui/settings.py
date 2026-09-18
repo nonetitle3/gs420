@@ -1,0 +1,1 @@
+def settings_info(config):return {"model":config.model_id,"device":config.device,"memory":"enabled"}
