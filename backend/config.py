@@ -26,6 +26,8 @@ class Settings(BaseSettings):
     device: str = Field(default="auto", alias="GS420_DEVICE")
     hf_token: str | None = Field(default=None, alias="GS420_HF_TOKEN")
     memory_db_path: str = Field(default="./data/gs420_memory.db", alias="GS420_MEMORY_DB_PATH")
+    sandbox_timeout_seconds: int = Field(default=5, alias="GS420_SANDBOX_TIMEOUT_SECONDS", ge=1, le=30)
+    sandbox_max_output_chars: int = Field(default=12000, alias="GS420_SANDBOX_MAX_OUTPUT_CHARS", ge=1000, le=100000)
 
 
 @lru_cache
