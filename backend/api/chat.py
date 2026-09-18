@@ -96,6 +96,11 @@ def history(session_id: str, orchestrator: AIOrchestrator = Depends(get_orchestr
     return {"session_id": session_id, "messages": orchestrator.get_history(session_id)}
 
 
+@router.get("/memory/stats")
+def memory_stats(orchestrator: AIOrchestrator = Depends(get_orchestrator)) -> dict[str, Any]:
+    return {"status": "ok", "memory": orchestrator.memory.stats()}
+
+
 @router.delete("/sessions/{session_id}/history")
 def clear_history(session_id: str, orchestrator: AIOrchestrator = Depends(get_orchestrator)) -> dict[str, Any]:
     orchestrator.clear_history(session_id)
