@@ -2,6 +2,14 @@
 
 Modular open-model AI platform.
 
+## Phase 5 — Voice / STT / TTS
+- Voice API foundation for speech-to-text and text-to-speech
+- `POST /api/voice/transcribe` accepts audio uploads
+- `POST /api/voice/synthesize` accepts text and language
+- `GET /api/voice/providers` reports configured providers
+- Provider adapters are optional; the base installation does not download a large audio model
+- STT/TTS adapters can later be backed by local models such as faster-whisper/Piper
+
 ## Phase 4 — Coding AI + Secure Sandbox
 - Restricted Python execution endpoint: `POST /api/code/execute`
 - Isolated temporary working directory per execution
@@ -90,6 +98,9 @@ GS420_DEVICE=auto
 - DELETE /api/sessions/{session_id}/history
 - GET /api/memory/stats
 - POST /api/code/execute
+- GET /api/voice/providers
+- POST /api/voice/transcribe
+- POST /api/voice/synthesize
 
 ## Tests
 ```bash
