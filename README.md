@@ -1,8 +1,12 @@
 # GS420 AI
 Open-source-first AI hub for Bengali + English chat, coding, memory, voice and multimodal workflows.
 
-## Phase 5 — Voice AI
-STT uses a replaceable Whisper-compatible Hugging Face pipeline. TTS uses a replaceable Piper adapter. Heavy speech models are loaded only when the voice endpoint is used; no paid API key is required.
+## Test everything
+From the repository root, run one command:
 
-Run:
-python -m uvicorn backend.main:app --reload
+python scripts/test_all.py
+
+Equivalent:
+python -m pytest -q tests
+
+This runs the complete pytest suite, including API, routing, memory, coding, voice and capability smoke tests. Model-heavy inference is intentionally not downloaded during tests; unavailable optional models are tested through graceful adapters rather than pretending real inference succeeded.
