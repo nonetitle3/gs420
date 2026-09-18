@@ -2,6 +2,16 @@
 
 Modular open-model AI platform.
 
+## Phase 10 — Tools System
+- Permission-aware built-in tool registry
+- Safe arithmetic calculator using AST validation (no eval/imports)
+- Current UTC time tool
+- Optional HTTP(S) text/JSON fetch tool, disabled by default
+- `GET /api/tools`
+- `POST /api/tools/execute`
+- Conservative URL, timeout, content-type, and response-size limits
+- Tools are separate from arbitrary shell/filesystem access
+
 ## Phase 9 — AI Agents
 - Permission-aware agent tool registry
 - Deterministic bounded agent execution loop
@@ -151,6 +161,8 @@ GS420_DEVICE=auto
 - POST /api/video/image-to-video
 - GET /api/agents/tools
 - POST /api/agents/run
+- GET /api/tools
+- POST /api/tools/execute
 
 ## Tests
 ```bash
