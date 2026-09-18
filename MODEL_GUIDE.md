@@ -1,2 +1,7 @@
-# Models
-Default chat/coding/reasoning uses a Hugging Face instruct model. GGUF is supported with llama.cpp. Whisper is the STT adapter, Piper is optional TTS, Diffusers/FLUX is optional image generation, and LTX/Wan-style video backends are GPU/Colab options.
+# GS420 AI Model Guide
+
+Default general model: `Qwen/Qwen2.5-0.5B-Instruct`.
+
+Optional specialist settings: `GS420_REASONING_MODEL_ID`, `GS420_CODING_MODEL_ID`, `GS420_VISION_MODEL_ID`.
+
+The router tries a configured specialist and falls back to the general model. Use compact/quantized models on low-memory devices. Use suitable GPU hardware for larger vision, image and video models. Check `/api/system/resources` and `/api/system/can-load` before heavy loading.

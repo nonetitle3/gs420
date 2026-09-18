@@ -1,11 +1,5 @@
-# GS420 AI — Phase 22 Testing
+# GS420 AI Testing
 
-Run:
-python scripts/test_all.py
+Run `python scripts/test_all.py` or `python -m pytest -q tests`.
 
-Equivalent:
-python -m pytest -q tests
-
-Coverage includes API health/system, routing/fallback, memory, coding/safe execution, OCR/vision, image/video adapters, agents/tools, documents/RAG, PWA/Android/Gradio/React scaffolds, model registry, resources, Colab/Hugging Face deployment, security and observability.
-
-Environment-specific CUDA, Tesseract, Android build and external deployment checks require their target environments.
+Coverage includes API, routing/fallback, memory, coding, OCR/vision, image/video adapters, agents/tools, documents/RAG, UI/deployment scaffolds, model registry, resources, security and observability. CUDA, Tesseract, Android, Colab and hosted deployments require target-environment validation.

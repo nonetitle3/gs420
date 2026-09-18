@@ -1,19 +1,17 @@
 # GS420 AI
 
-Open-source-first modular AI hub: chat, coding, vision, OCR, image/video adapters, voice, agents, tools, documents, memory, PWA and Android/Colab/Hugging Face deployment paths.
+Open-source-first modular AI hub for Bengali and English: chat, coding, voice, vision/OCR, image/video adapters, agents, tools, documents, memory, PWA, Android, Colab and Hugging Face.
 
 ## Quick start
 pip install -r requirements.txt
 python app.py
 
-## API
-uvicorn backend.main:app --host 0.0.0.0 --port 8000
+API: `uvicorn backend.main:app --host 0.0.0.0 --port 8000`
 
 ## Testing
-Phase 22:
-python scripts/test_all.py
+`python scripts/test_all.py`
 
-Equivalent:
-python -m pytest -q tests
+## Documentation
+See ARCHITECTURE.md, INSTALL.md, MODEL_GUIDE.md, AGENTS.md, SECURITY.md, TROUBLESHOOTING.md, TESTING.md, COLAB.md, HUGGINGFACE.md, ANDROID.md and PHASED_GENERATION_GUIDE.md.
 
-The suite covers core API, routing, memory, tools, agents, documents, multimodal adapters, security, resources, deployment scaffolds and observability. GPU/OCR/Android/deployment checks may require their target environment.
+No OpenAI API key is required. Model backends are replaceable and hardware-aware.
