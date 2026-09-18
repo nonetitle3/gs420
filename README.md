@@ -2,6 +2,15 @@
 
 Modular open-model AI platform.
 
+## Phase 4 — Coding AI + Secure Sandbox
+- Restricted Python execution endpoint: `POST /api/code/execute`
+- Isolated temporary working directory per execution
+- Python isolated mode (`-I`)
+- Execution timeout and output-size limits
+- No inherited application environment variables except a minimal runtime environment
+- Sandbox limits configurable with `GS420_SANDBOX_TIMEOUT_SECONDS` and `GS420_SANDBOX_MAX_OUTPUT_CHARS`
+- Important: this is defense-in-depth for local use; truly untrusted multi-user execution should run inside a container or VM with OS-level isolation.
+
 ## Phase 3 — Persistent Memory
 - SQLite-backed conversation history that survives restarts
 - Automatic session persistence
@@ -80,6 +89,7 @@ GS420_DEVICE=auto
 - GET /api/sessions/{session_id}/history
 - DELETE /api/sessions/{session_id}/history
 - GET /api/memory/stats
+- POST /api/code/execute
 
 ## Tests
 ```bash
