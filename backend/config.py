@@ -30,6 +30,9 @@ class Settings(BaseSettings):
     sandbox_max_output_chars: int = Field(default=12000, alias="GS420_SANDBOX_MAX_OUTPUT_CHARS", ge=1000, le=100000)
     admin_token: str | None = Field(default=None, alias="GS420_ADMIN_TOKEN")
     embedding_model_id: str | None = Field(default=None, alias="GS420_EMBEDDING_MODEL_ID")
+    rag_enabled: bool = Field(default=True, alias="GS420_RAG_ENABLED")
+    rag_top_k: int = Field(default=4, alias="GS420_RAG_TOP_K", ge=1, le=10)
+    rag_semantic: bool = Field(default=True, alias="GS420_RAG_SEMANTIC")
 
 
 @lru_cache
