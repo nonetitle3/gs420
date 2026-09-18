@@ -1,8 +1,8 @@
 # GS420 AI
-Open-source-first AI hub for Bengali + English chat, coding, memory, voice, vision, image and multimodal workflows.
+Open-source-first AI hub for Bengali + English chat, coding, memory, voice, vision, image, video and multimodal workflows.
 
-## Phase 7 — Image AI
-Includes an optional Diffusers text/image-to-image backend plus local enhancement and 2x/3x/4x upscaling utilities. Generative image models are intentionally optional because model size and hardware requirements vary; no free-tier GPU capacity is assumed.
+## Phase 8 — Video AI
+Provides a replaceable GPU video-generation adapter and lightweight frame extraction. LTX/Wan-style generation remains optional because video inference is resource-intensive and hardware-dependent.
 
 Run:
 python -m uvicorn backend.main:app --reload
