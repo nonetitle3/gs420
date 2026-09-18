@@ -1,0 +1,15 @@
+services:
+  - type: web
+    name: gs420-ai-api
+    runtime: python
+    plan: free
+    region: singapore
+    branch: main
+    buildCommand: pip install -r requirements.txt
+    startCommand: uvicorn backend.main:app --host 0.0.0.0 --port $PORT
+    healthCheckPath: /health
+    envVars:
+      - key: GS420_DEVICE
+        value: cpu
+      - key: GS420_MODEL_ID
+        value: Qwen/Qwen2.5-0.5B-Instruct
