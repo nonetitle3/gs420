@@ -5,11 +5,12 @@ from fastapi.middleware.cors import CORSMiddleware
 from backend.api.chat import router as chat_router
 from backend.core.orchestrator import AIOrchestrator
 from backend.dependencies import get_orchestrator
+from backend.api.voice import router as voice_router
 
 app = FastAPI(
     title="GS420 AI",
     description="Modular open-model AI platform foundation.",
-    version="0.2.0",
+    version="0.3.0",
 )
 
 app.add_middleware(
@@ -21,16 +22,17 @@ app.add_middleware(
 )
 
 app.include_router(chat_router)
+app.include_router(voice_router)
 
 
 @app.get("/")
 def root() -> dict[str, str]:
-    return {"status": "ok", "message": "GS420 AI API", "version": "0.2.0"}
+    return {"status": "ok", "message": "GS420 AI API", "version": "0.3.0"}
 
 
 @app.get("/health")
 def health() -> dict[str, str]:
-    return {"status": "ok", "service": "gs420-ai", "phase": "2"}
+    return {"status": "ok", "service": "gs420-ai", "phase": "5"}
 
 
 @app.get("/api/models")
