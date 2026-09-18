@@ -5,9 +5,11 @@ from typing import Any
 from fastapi import APIRouter, File, Form, HTTPException, UploadFile
 from pydantic import BaseModel, Field
 from backend.rag import DocumentStore, EmbeddingProvider
+from backend.config import get_settings
 
 router=APIRouter(prefix="/api/rag",tags=["rag"])
-store=DocumentStore()
+_embedding_id=get_settings().embedding_model_id
+store=DocumentStore(embedder=EmbeddingProvider(_embedding_id) if _embedding_id else None)
 class SearchRequest(BaseModel):
     query:str=Field(min_length=1,max_length=5000)
     limit:int=Field(default=5,ge=1,le=20)
