@@ -25,6 +25,7 @@ class Settings(BaseSettings):
     port: int = Field(default=7860, alias="GS420_PORT", ge=1, le=65535)
     device: str = Field(default="auto", alias="GS420_DEVICE")
     hf_token: str | None = Field(default=None, alias="GS420_HF_TOKEN")
+    memory_db_path: str = Field(default="./data/gs420_memory.db", alias="GS420_MEMORY_DB_PATH")
 
 
 @lru_cache
