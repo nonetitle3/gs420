@@ -9,11 +9,12 @@ from backend.api.voice import router as voice_router
 from backend.api.vision import router as vision_router
 from backend.api.image import router as image_router
 from backend.api.video import router as video_router
+from backend.api.agents import router as agents_router
 
 app = FastAPI(
     title="GS420 AI",
     description="Modular open-model AI platform foundation.",
-    version="0.6.0",
+    version="0.7.0",
 )
 
 app.add_middleware(
@@ -29,16 +30,17 @@ app.include_router(voice_router)
 app.include_router(vision_router)
 app.include_router(image_router)
 app.include_router(video_router)
+app.include_router(agents_router)
 
 
 @app.get("/")
 def root() -> dict[str, str]:
-    return {"status": "ok", "message": "GS420 AI API", "version": "0.6.0"}
+    return {"status": "ok", "message": "GS420 AI API", "version": "0.7.0"}
 
 
 @app.get("/health")
 def health() -> dict[str, str]:
-    return {"status": "ok", "service": "gs420-ai", "phase": "8"}
+    return {"status": "ok", "service": "gs420-ai", "phase": "9"}
 
 
 @app.get("/api/models")
@@ -48,4 +50,4 @@ def models(orchestrator: AIOrchestrator = Depends(get_orchestrator)) -> dict:
 
 @app.get("/api/system")
 def system_info(orchestrator: AIOrchestrator = Depends(get_orchestrator)) -> dict:
-    return {"status": "ok", "model": orchestrator.model_info(), "phase": 8}
+    return {"status": "ok", "model": orchestrator.model_info(), "phase": 9}
