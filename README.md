@@ -2,6 +2,15 @@
 
 Modular open-model AI platform.
 
+## Phase 9 — AI Agents
+- Permission-aware agent tool registry
+- Deterministic bounded agent execution loop
+- Maximum 5 actions per run
+- Explicit tool enable/disable boundary
+- `GET /api/agents/tools`
+- `POST /api/agents/run`
+- No arbitrary shell, filesystem, network, or browser access is granted by default
+
 ## Phase 8 — Video AI
 - Provider-agnostic text-to-video API
 - Image-to-video API foundation
@@ -140,6 +149,8 @@ GS420_DEVICE=auto
 - GET /api/video/providers
 - POST /api/video/generate
 - POST /api/video/image-to-video
+- GET /api/agents/tools
+- POST /api/agents/run
 
 ## Tests
 ```bash
