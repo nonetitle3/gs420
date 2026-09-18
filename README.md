@@ -9,9 +9,11 @@ python app.py
 ## API
 uvicorn backend.main:app --host 0.0.0.0 --port 8000
 
-## Observability
-Phase 21 provides structured request logs, request IDs, latency metrics, error counts, inference latency logging, and runtime resource monitoring.
-- GET /api/system/observability
-- GET /api/system/metrics
+## Testing
+Phase 22:
+python scripts/test_all.py
 
-Pass X-Request-ID to correlate a client request with server logs. If omitted, GS420 generates one.
+Equivalent:
+python -m pytest -q tests
+
+The suite covers core API, routing, memory, tools, agents, documents, multimodal adapters, security, resources, deployment scaffolds and observability. GPU/OCR/Android/deployment checks may require their target environment.

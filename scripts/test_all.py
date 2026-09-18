@@ -1,4 +1,3 @@
-#!/usr/bin/env python3
-"""Run the complete repository pytest suite in one command."""
 import subprocess,sys
-raise SystemExit(subprocess.call([sys.executable,"-m","pytest","-q","tests"]))
+def main(): raise SystemExit(subprocess.call([sys.executable,"-m","pytest","-q","tests"]))
+if __name__=="__main__": main()
