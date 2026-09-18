@@ -30,6 +30,24 @@ class ChatResponse(BaseModel):
     role: str
 
 
+class CodeExecutionRequest(BaseModel):
+    code: str = Field(min_length=1, max_length=50000)
+
+
+@router.post("/code/execute")
+def execute_code(
+    request: CodeExecutionRequest,
+    orchestrator: AIOrchestrator = Depends(get_orchestrator),
+) -> dict[str, Any]:
+    result = orchestrator.execute_python(request.code)
+    return {
+        "success": result.success,
+        "stdout": result.stdout,
+        "stderr": result.stderr,
+        "return_code": result.return_code,
+        "timed_out": result.timed_out,
+    }
+
 class SessionResponse(BaseModel):
     session_id: str
 
