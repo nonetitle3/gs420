@@ -1,0 +1,15 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="theme-color" content="#111827"><link rel="manifest" href="/pwa/manifest.json">
+<title>GS420 AI</title>
+<style>body{font-family:system-ui,sans-serif;max-width:720px;margin:40px auto;padding:0 16px}textarea{width:100%;min-height:120px}button{padding:10px 16px;margin-top:8px}#out{white-space:pre-wrap;margin-top:16px}</style>
+</head>
+<body><h1>GS420 AI</h1><p>Installable PWA shell for the GS420 API.</p>
+<textarea id="prompt" placeholder="Ask GS420..."></textarea><br><button id="send">Send</button><div id="out"></div>
+<script>
+if("serviceWorker" in navigator) navigator.serviceWorker.register("/pwa/sw.js");
+const out=document.getElementById("out");
+document.getElementById("send").onclick=async()=>{out.textContent="Working...";try{const r=await fetch("/api/chat",{method:"POST",headers:{"Content-Type":"application/json"},body:JSON.stringify({session_id:null,message:document.getElementById("prompt").value,role:"auto",stream:false})});out.textContent=JSON.stringify(await r.json(),null,2)}catch(e){out.textContent="Request failed: "+e}};
+</script></body></html>
