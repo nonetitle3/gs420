@@ -32,7 +32,7 @@ class Settings(BaseSettings):
     embedding_model_id: str | None = Field(default=None, alias="GS420_EMBEDDING_MODEL_ID")
     rag_enabled: bool = Field(default=True, alias="GS420_RAG_ENABLED")
     rag_top_k: int = Field(default=4, alias="GS420_RAG_TOP_K", ge=1, le=10)
-    rag_semantic: bool = Field(default=True, alias="GS420_RAG_SEMANTIC")\n    ocr_language: str = Field(default="ben+eng", alias="GS420_OCR_LANGUAGE")
+    rag_semantic: bool = Field(default=True, alias="GS420_RAG_SEMANTIC")\n    ocr_language: str = Field(default="ben+eng", alias="GS420_OCR_LANGUAGE")\n    ocr_preprocess: str = Field(default="balanced", alias="GS420_OCR_PREPROCESS")\n    ocr_min_confidence: float = Field(default=55.0, alias="GS420_OCR_MIN_CONFIDENCE", ge=0, le=100)
 
 
 @lru_cache
