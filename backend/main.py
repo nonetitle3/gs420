@@ -22,7 +22,7 @@ import uuid
 app = FastAPI(
     title="GS420 AI",
     description="Modular open-model AI platform foundation.",
-    version="1.3.0",
+    version="1.4.0",
 )
 
 app.add_middleware(
@@ -70,12 +70,12 @@ app.mount("/pwa", StaticFiles(directory="pwa", html=True), name="pwa")
 
 @app.get("/")
 def root() -> dict[str, str]:
-    return {"status": "ok", "message": "GS420 AI API", "version": "1.3.0"}
+    return {"status": "ok", "message": "GS420 AI API", "version": "1.4.0"}
 
 
 @app.get("/health")
 def health() -> dict[str, str]:
-    return {"status": "ok", "service": "gs420-ai", "phase": "16"}
+    return {"status": "ok", "service": "gs420-ai", "phase": "17"}
 
 
 @app.get("/api/models")
@@ -85,4 +85,4 @@ def models(orchestrator: AIOrchestrator = Depends(get_orchestrator)) -> dict:
 
 @app.get("/api/system")
 def system_info(orchestrator: AIOrchestrator = Depends(get_orchestrator)) -> dict:
-    return {"status": "ok", "model": orchestrator.model_info(), "phase": 16}
+    return {"status": "ok", "model": orchestrator.model_info(), "phase": 17}
