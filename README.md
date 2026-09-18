@@ -2,6 +2,19 @@
 
 Modular open-model AI platform.
 
+## Phase 11 — RAG + Documents
+- SQLite-backed document store
+- Full-text search with SQLite FTS5 when available
+- Safe fallback text search
+- Upload support for TXT, Markdown, CSV, and JSON
+- `GET /api/rag/stats`
+- `POST /api/rag/documents`
+- `POST /api/rag/search`
+- `GET /api/rag/documents/{document_id}`
+- `DELETE /api/rag/documents/{document_id}`
+- 20 MB document upload limit
+- PDF/DOCX extraction and vector embeddings are reserved for the next RAG enhancement
+
 ## Phase 10 — Tools System
 - Permission-aware built-in tool registry
 - Safe arithmetic calculator using AST validation (no eval/imports)
@@ -163,6 +176,11 @@ GS420_DEVICE=auto
 - POST /api/agents/run
 - GET /api/tools
 - POST /api/tools/execute
+- GET /api/rag/stats
+- POST /api/rag/documents
+- POST /api/rag/search
+- GET /api/rag/documents/{document_id}
+- DELETE /api/rag/documents/{document_id}
 
 ## Tests
 ```bash
