@@ -1,12 +1,11 @@
 # GS420 AI
-Open-source-first AI hub for Bengali + English chat, coding, memory, voice and multimodal workflows.
+Open-source-first AI hub for Bengali + English chat, coding, memory, voice, vision and multimodal workflows.
 
-## Test everything
-From the repository root, run one command:
+## Phase 6 — Vision AI
+Provides Bengali+English OCR through Tesseract and a replaceable Hugging Face image-to-text adapter. OCR accuracy depends on image quality, language data and engine/model; it is not guaranteed to be 100%.
 
+Run:
+python -m uvicorn backend.main:app --reload
+
+Test everything:
 python scripts/test_all.py
-
-Equivalent:
-python -m pytest -q tests
-
-This runs the complete pytest suite, including API, routing, memory, coding, voice and capability smoke tests. Model-heavy inference is intentionally not downloaded during tests; unavailable optional models are tested through graceful adapters rather than pretending real inference succeeded.
