@@ -2,7 +2,7 @@
 
 Modular open-model AI platform.
 
-## Phase 13 — Management Dashboard + Admin Security\n- Admin dashboard at `/pwa/admin.html`\n- Token-protected management endpoints under `/api/admin`\n- `GS420_ADMIN_TOKEN` is never returned by the API\n- Redacted GS420 environment view\n- Runtime model/device/configuration snapshot\n- API release version `1.1.0`\n\n## Phase 12 — PWA + Management/Security Foundation
+## Phase 14 — Production Observability + Monitoring\n- Request metrics and latency tracking\n- 5xx error counters\n- Recent request event buffer with request IDs\n- Structured exception logging\n- Admin-protected metrics API at `/api/metrics/summary`\n- Monitoring UI at `/pwa/monitor.html`\n- API release version `1.2.0`\n\n## Phase 14 — Production Observability + Monitoring\nPhase 13 — Management Dashboard + Admin Security\n- Admin dashboard at `/pwa/admin.html`\n- Token-protected management endpoints under `/api/admin`\n- `GS420_ADMIN_TOKEN` is never returned by the API\n- Redacted GS420 environment view\n- Runtime model/device/configuration snapshot\n- API release version `1.1.0`\n\n## Phase 12 — PWA + Management/Security Foundation
 - Installable PWA shell at `/pwa/`
 - Web App Manifest
 - Service worker with basic offline shell caching
