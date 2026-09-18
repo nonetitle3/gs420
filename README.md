@@ -2,6 +2,13 @@
 
 Modular open-model AI platform.
 
+## Phase 3 — Persistent Memory
+- SQLite-backed conversation history that survives restarts
+- Automatic session persistence
+- Thread-safe database access with WAL mode
+- Configurable database path via `GS420_MEMORY_DB_PATH`
+- Memory statistics endpoint: `GET /api/memory/stats`
+
 ## Phase 2 — Model Router
 - Role-based routing: general, reasoning, coding, vision
 - Automatic routing for coding/reasoning keywords
@@ -72,6 +79,7 @@ GS420_DEVICE=auto
 - POST /api/chat
 - GET /api/sessions/{session_id}/history
 - DELETE /api/sessions/{session_id}/history
+- GET /api/memory/stats
 
 ## Tests
 ```bash
@@ -80,8 +88,8 @@ pytest -q
 
 Tests use a fake model and do not download a Hugging Face model.
 
-## Current limitation
-Conversation history is in-memory and is lost after restart. Persistent memory is planned for Phase 3.
+## Memory
+By default, persistent memory is stored at `./data/gs420_memory.db`. The `data/` directory is ignored by Git so local conversation data is not committed.
 
 ## Roadmap
 Phase 2 — Model Router
