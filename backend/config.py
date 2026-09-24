@@ -17,8 +17,9 @@ class Settings(BaseSettings):
     top_p: float = Field(default=.9, alias="GS420_TOP_P", gt=0, le=1)
     max_history_messages: int = Field(default=20, alias="GS420_MAX_HISTORY_MESSAGES", ge=2, le=100)
     host: str = Field(default="0.0.0.0", alias="GS420_HOST")
-    port: int = Field(default=7860, alias="GS420_PORT", ge=1, le=65535)
+    port: int = Field(default=8000, alias="GS420_PORT", ge=1, le=65535)
     device: str = Field(default="auto", alias="GS420_DEVICE")
+    dtype: str = Field(default="auto", alias="GS420_DTYPE")
     model_cache_dir: str | None = Field(default=None, alias="GS420_MODEL_CACHE_DIR")
     hf_token: str | None = Field(default=None, alias="GS420_HF_TOKEN")
     memory_db_path: str = Field(default="./data/gs420_memory.db", alias="GS420_MEMORY_DB_PATH")
@@ -36,7 +37,6 @@ class Settings(BaseSettings):
     ocr_min_confidence: float = Field(default=55, alias="GS420_OCR_MIN_CONFIDENCE", ge=0, le=100)
     cors_origins: str = Field(default="*", alias="GS420_CORS_ORIGINS")
     log_level: str = Field(default="INFO", alias="GS420_LOG_LEVEL")
-
     @property
     def db_path(self):
         return self.memory_db_path
