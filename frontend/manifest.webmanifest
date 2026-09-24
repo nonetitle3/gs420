@@ -1,0 +1,9 @@
+{
+  "name": "GS420 AI",
+  "short_name": "GS420",
+  "start_url": "./",
+  "display": "standalone",
+  "background_color": "#111111",
+  "theme_color": "#111111",
+  "description": "Open-weight Bengali and English AI hub."
+}
