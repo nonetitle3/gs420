@@ -13,3 +13,7 @@ services:
         value: cpu
       - key: GS420_MODEL_ID
         value: Qwen/Qwen2.5-0.5B-Instruct
+      - key: GS420_CORS_ORIGINS
+        sync: false
+      - key: GS420_APP_ENV
+        value: production
