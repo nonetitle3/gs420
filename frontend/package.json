@@ -1,10 +1,11 @@
 {
   "name": "gs420-ai",
   "private": true,
-  "version": "1.0.0",
+  "version": "1.1.0",
   "type": "module",
   "scripts": {"dev": "vite", "build": "vite build"},
   "dependencies": {
+    "@gradio/client": "^2.7.0",
     "react": "^19.2.0",
     "react-dom": "^19.2.0"
   },
