@@ -7,7 +7,7 @@ from backend.api import chat, memory, documents, agents, voice, vision, image, v
 
 app = FastAPI(title=settings.app_name, version="2.0.0", description="GS420 AI Master Prompt Phase 0-23")
 _origins = [x.strip() for x in settings.cors_origins.split(",") if x.strip()] or ["*"]
-app.add_middleware(CORSMiddleware, allow_origins=_origins, allow_methods=["GET","POST","DELETE","OPTIONS"], allow_headers=["*"])
+app.add_middleware(CORSMiddleware, allow_origins=_origins, allow_methods=["GET","POST","DELETE","OPTIONS"], allow_headers=["*"], allow_credentials=False)
 
 @app.middleware("http")
 async def request_observer(request: Request, call_next):
@@ -32,8 +32,8 @@ for r in (chat.router,memory.router,documents.router,agents.router,voice.router,
 
 @app.get("/")
 def root():
-    return {"status":"ok","name":settings.app_name,"environment":settings.app_env,"roadmap":"Phase 0-23"}
+    return {"status":"ok","name":settings.app_name,"environment":settings.app_env,"roadmap":"Phase 0-23","runtime":"fastapi","model_id":settings.model_id}
 
 @app.get("/health")
 def health():
-    return {"status":"ok","environment":settings.app_env}
+    return {"status":"ok","environment":settings.app_env,"runtime":"fastapi","model_id":settings.model_id,"device":settings.device}
